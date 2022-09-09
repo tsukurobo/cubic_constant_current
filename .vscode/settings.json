@@ -1,0 +1,19 @@
+{
+    "C_Cpp.default.includePath": [
+        "C:\\Program Files (x86)\\Arduino\\tools",
+        "C:\\Program Files (x86)\\Arduino\\libraries",
+        "C:\\Program Files (x86)\\Arduino\\hardware",
+        "C:\\Program Files (x86)\\Arduino\\hardware\\tools\\avr\\avr\\include"
+    ],
+    "files.associations": {
+        "*.txt": "plaintext",
+        "optional": "cpp",
+        "istream": "cpp",
+        "ostream": "cpp",
+        "system_error": "cpp",
+        "array": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp"
+    },
+}
