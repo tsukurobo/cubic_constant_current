@@ -15,7 +15,7 @@ void setup()
 
 void loop()
 {
-    static Constant_current_controller motorController(&motor, 150, 200, 0.03, 509,10);
+    static Constant_current_controller motorController(&motor, 565, 150, 0.02, 509, 20);
     motorController.update();
     motorController.plot();
 

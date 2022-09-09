@@ -2,20 +2,20 @@
 #include "ConstantCurrent.h"
 #include "MovingAverage.h"
 
-template <typename T, typename U>
-inline T Constant_current_controller::limitInRange(const T value, const U min, const U max)
-{
-    return min(max(value, min), max);
-}
-
 void Constant_current_controller::update()
 {
-    current = analogRead(motorPin);
+    static int deviation = 0;
+
+    current=analogRead(motorPin);
+
     currentMovingAverage.add(current);
 
-    duty = limitInRange(duty + Kp * (double)(targetCurrent - currentMovingAverage.get()), -1 * capableDuty, capableDuty);
+    deviation = targetCurrent - currentMovingAverage.get();
+    duty += Kp * deviation;
+
+    duty=limitInRange(duty,(int)capableDuty);
     motor->put(duty);
-    Cubic_motor::send();
+    motor->send();
 }
 
 void Constant_current_controller::plot() const
@@ -24,6 +24,8 @@ void Constant_current_controller::plot() const
     Serial.print(targetCurrent);
     Serial.print(", Moving Current: ");
     Serial.print(currentMovingAverage.get());
+    Serial.print(", Duty: ");
+    Serial.print(duty);
     Serial.print(", Current: ");
     Serial.println(current);
 }

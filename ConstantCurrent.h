@@ -18,6 +18,7 @@ private:
     //! The duty capable by the motor in use. It should be smaller than or equal to 255 when using with Arduino Mega.
     const unsigned int capableDuty;
 
+    //! Motor Pin NO.
     const uint8_t motorPin = A0;
 
     //! Pointer to the Cubic_motor object
@@ -26,12 +27,14 @@ private:
     //! Target current value (in analogRead units) of the motor
     unsigned int targetCurrent;
 
+    //! Latest current value (in analogRead units) of the motor
     unsigned int current;
 
+    //! Moving average of the current value
     Moving_average<unsigned int> currentMovingAverage;
 
     //! Current duty value of the motor
-    int duty;
+    double duty;
 
 public:
     /**
@@ -63,7 +66,7 @@ public:
      */
     void setTargetCurrent(int targetCurrent);
     /**
-     * @brief Get the Target Current object
+     * @brief Get the Target Current value
      *
      * @return int targetCurrent
      */
@@ -75,6 +78,10 @@ public:
      */
     void update();
 
+    /**
+     * @brief Plot the current values and duty to the Serial Monitor
+     * @details This function does not necessarily need to be called in the loop() function.
+     */
     void plot() const;
 
     /**
@@ -88,10 +95,37 @@ public:
      * @return T
      */
     template <typename T, typename U>
-    static T limitInRange(const T value, const U min, const U max);
+    static T limitInRange(T value, U min, U max);
+
+    /**
+     * @brief This function is used to limit the value in the range of [-|max_absolute|, |max_absolute|].
+     *
+     * @tparam T
+     * @tparam U
+     * @param value
+     * @param max_absolute
+     * @return T
+     */
+    template <typename T, typename U>
+    static T limitInRange(T value, U max_absolute);
 };
 
 inline void Constant_current_controller::setTargetCurrent(const int targetCurrent)
 {
     this->targetCurrent = targetCurrent;
+}
+
+template <typename T, typename U>
+inline T Constant_current_controller::limitInRange(const T value, const U min, const U max)
+{
+    return min(max(value, min), max);
+}
+
+template <typename T, typename U>
+inline T Constant_current_controller::limitInRange(const T value, const U max_absolute)
+{
+    if(max_absolute>=0)
+        return limitInRange(value, -1*max_absolute, max_absolute);
+    else
+        return limitInRange(value, max_absolute, -1*max_absolute);
 }

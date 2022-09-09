@@ -3,5 +3,5 @@
     "board": "arduino:avr:mega",
     "output": "../ArduinoOutput",
     "sketch": "cubic_constant_current.ino",
-    "port": "COM4"
+    "port": "COM9"
 }
