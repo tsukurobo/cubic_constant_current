@@ -1,7 +1,0 @@
-{
-    "configuration": "cpu=atmega2560",
-    "board": "arduino:avr:mega",
-    "output": "../ArduinoOutput",
-    "sketch": "cubic_constant_current.ino",
-    "port": "COM9"
-}
