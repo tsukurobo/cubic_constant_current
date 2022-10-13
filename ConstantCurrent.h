@@ -74,9 +74,11 @@ public:
 
     /**
      * @brief Update the controller
+     * @param ifPut If set to true, the duty will be put to the Cubic_motor object. The default value is false.
+     * @return int duty
      * @details This function should be called in the loop() function.
      */
-    void update();
+    int update(bool ifPut = false);
 
     /**
      * @brief Plot the current values and duty to the Serial Monitor
@@ -124,8 +126,8 @@ inline T Constant_current_controller::limitInRange(const T value, const U min, c
 template <typename T, typename U>
 inline T Constant_current_controller::limitInRange(const T value, const U max_absolute)
 {
-    if(max_absolute>=0)
-        return limitInRange(value, -1*max_absolute, max_absolute);
+    if (max_absolute >= 0)
+        return limitInRange(value, -1 * max_absolute, max_absolute);
     else
-        return limitInRange(value, max_absolute, -1*max_absolute);
+        return limitInRange(value, max_absolute, -1 * max_absolute);
 }

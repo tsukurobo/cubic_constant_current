@@ -1,19 +1,23 @@
 #include "ConstantCurrent.h"
 
-void Constant_current_controller::update()
+int Constant_current_controller::update(const bool ifPut)
 {
     static int deviation = 0;
 
-    current=analogRead(motorPin);
+    current = analogRead(motorPin);
 
     currentMovingAverage.add(current);
 
     deviation = targetCurrent - currentMovingAverage.get();
     duty += Kp * deviation;
 
-    duty=limitInRange(duty,(int)capableDuty);
-    motor->put(duty);
-    motor->send();
+    duty = limitInRange(duty, (int)capableDuty);
+
+    if (ifPut)
+    {
+        motor->put(duty);
+    }
+    return duty;
 }
 
 void Constant_current_controller::plot() const
