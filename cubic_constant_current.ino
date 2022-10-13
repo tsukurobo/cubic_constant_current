@@ -2,7 +2,6 @@
 #include <Arduino.h>
 #include "Cubic1.7.h"
 #include "ConstantCurrent.h"
-#include "MovingAverage.h"
 
 Cubic_motor motor;
 

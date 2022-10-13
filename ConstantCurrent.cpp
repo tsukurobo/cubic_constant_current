@@ -1,6 +1,4 @@
-#pragma once
 #include "ConstantCurrent.h"
-#include "MovingAverage.h"
 
 void Constant_current_controller::update()
 {
