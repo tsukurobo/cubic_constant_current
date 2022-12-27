@@ -1,6 +1,6 @@
 #pragma once
 #include <Arduino.h>
-#include "Cubic1.7.h"
+#include "cubic.ver1.8.h"
 #include "ConstantCurrent.h"
 
 Cubic_motor motor;

@@ -1,6 +1,6 @@
 #pragma once
 #include <Arduino.h>
-#include "Cubic1.7.h"
+#include "cubic.ver1.8.h"
 #include "MovingAverage.h"
 
 class Constant_current_controller
